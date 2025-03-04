@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WatchmakerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Articulos">
+          <Key>
+            <PropertyRef Name="IdArticulo" />
+          </Key>
+          <Property Name="IdArticulo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreArticulo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="PrecioVenta" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="IdTipo" Type="int" />
+          <Property Name="IdCate" Type="int" />
+          <Property Name="IdImagen" Type="int" />
+          <Property Name="IdMaterial" Type="int" />
+          <Property Name="IdTalla" Type="int" />
+          <Property Name="Existencia" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="idCate" />
+          </Key>
+          <Property Name="idCate" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Categoria" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Imagenes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdArticulo" Type="int" />
+          <Property Name="Imagen" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="IdMaterial" />
+          </Key>
+          <Property Name="IdMaterial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Descripciontip" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tallas">
+          <Key>
+            <PropertyRef Name="idtalla" />
+          </Key>
+          <Property Name="idtalla" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Talla" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TipoArt">
+          <Key>
+            <PropertyRef Name="IdTipo" />
+          </Key>
+          <Property Name="IdTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Descripciontip" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usuario" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Pass" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Apellido" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Rol" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Articulos_Categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="idCate" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="IdCate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Articulos_Material">
+          <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="IdMaterial" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="IdMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Articulos_Tallas">
+          <End Role="Tallas" Type="Self.Tallas" Multiplicity="0..1" />
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tallas">
+              <PropertyRef Name="idtalla" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="IdTalla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Articulos_TipoArt">
+          <End Role="TipoArt" Type="Self.TipoArt" Multiplicity="0..1" />
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoArt">
+              <PropertyRef Name="IdTipo" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="IdTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Articulos_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Imagenes_Articulos">
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="0..1" />
+          <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulos">
+              <PropertyRef Name="IdArticulo" />
+            </Principal>
+            <Dependent Role="Imagenes">
+              <PropertyRef Name="IdArticulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WatchmakerModelStoreContainer">
+          <EntitySet Name="Articulos" EntityType="Self.Articulos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Imagenes" EntityType="Self.Imagenes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tallas" EntityType="Self.Tallas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoArt" EntityType="Self.TipoArt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Articulos_Categoria" Association="Self.FK_Articulos_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Articulos_Material" Association="Self.FK_Articulos_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Articulos_Tallas" Association="Self.FK_Articulos_Tallas">
+            <End Role="Tallas" EntitySet="Tallas" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Articulos_TipoArt" Association="Self.FK_Articulos_TipoArt">
+            <End Role="TipoArt" EntitySet="TipoArt" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Articulos_Usuario" Association="Self.FK_Articulos_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Imagenes_Articulos" Association="Self.FK_Imagenes_Articulos">
+            <End Role="Articulos" EntitySet="Articulos" />
+            <End Role="Imagenes" EntitySet="Imagenes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WatchmakerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Articulos">
+          <Key>
+            <PropertyRef Name="IdArticulo" />
+          </Key>
+          <Property Name="IdArticulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreArticulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="PrecioVenta" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <Property Name="IdTipo" Type="Int32" />
+          <Property Name="IdCate" Type="Int32" />
+          <Property Name="IdImagen" Type="Int32" />
+          <Property Name="IdMaterial" Type="Int32" />
+          <NavigationProperty Name="Categoria" Relationship="Self.FK_Articulos_Categoria" FromRole="Articulos" ToRole="Categoria" />
+          <NavigationProperty Name="Imagenes" Relationship="Self.FK_Articulos_Imagenes" FromRole="Articulos" ToRole="Imagenes" />
+          <NavigationProperty Name="Material" Relationship="Self.FK_Articulos_Material" FromRole="Articulos" ToRole="Material" />
+          <NavigationProperty Name="TipoArt" Relationship="Self.FK_Articulos_TipoArt" FromRole="Articulos" ToRole="TipoArt" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Articulos_Usuario" FromRole="Articulos" ToRole="Usuario" />
+          <Property Name="IdTalla" Type="Int32" />
+          <NavigationProperty Name="Tallas" Relationship="WatchmakerModel.FK_Articulos_Tallas" FromRole="Articulos" ToRole="Tallas" />
+          <Property Name="Existencia" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Imagenes1" Relationship="WatchmakerModel.FK_Imagenes_Articulos" FromRole="Articulos" ToRole="Imagenes" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="idCate" />
+          </Key>
+          <Property Name="idCate" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Categoria1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Articulos" Relationship="Self.FK_Articulos_Categoria" FromRole="Categoria" ToRole="Articulos" />
+        </EntityType>
+        <EntityType Name="Imagenes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="IdArticulo" Type="Int32" />
+          <Property Name="Imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Articulos" Relationship="Self.FK_Articulos_Imagenes" FromRole="Imagenes" ToRole="Articulos" />
+          <NavigationProperty Name="Articulos1" Relationship="WatchmakerModel.FK_Imagenes_Articulos" FromRole="Imagenes" ToRole="Articulos" />
+        </EntityType>
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="IdMaterial" />
+          </Key>
+          <Property Name="IdMaterial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripciontip" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Articulos" Relationship="Self.FK_Articulos_Material" FromRole="Material" ToRole="Articulos" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TipoArt">
+          <Key>
+            <PropertyRef Name="IdTipo" />
+          </Key>
+          <Property Name="IdTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripciontip" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Articulos" Relationship="Self.FK_Articulos_TipoArt" FromRole="TipoArt" ToRole="Articulos" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Pass" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Rol" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Articulos" Relationship="Self.FK_Articulos_Usuario" FromRole="Usuario" ToRole="Articulos" />
+        </EntityType>
+        <Association Name="FK_Articulos_Categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="idCate" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="IdCate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Articulos_Imagenes">
+          <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="0..1" />
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Imagenes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="IdImagen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Articulos_Material">
+          <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="IdMaterial" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="IdMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Articulos_TipoArt">
+          <End Role="TipoArt" Type="Self.TipoArt" Multiplicity="0..1" />
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoArt">
+              <PropertyRef Name="IdTipo" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="IdTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Articulos_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbModels" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Articulos" EntityType="Self.Articulos" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" />
+          <EntitySet Name="Imagenes" EntityType="Self.Imagenes" />
+          <EntitySet Name="Material" EntityType="Self.Material" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TipoArt" EntityType="Self.TipoArt" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Articulos_Categoria" Association="Self.FK_Articulos_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Articulos_Imagenes" Association="Self.FK_Articulos_Imagenes">
+            <End Role="Imagenes" EntitySet="Imagenes" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Articulos_Material" Association="Self.FK_Articulos_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Articulos_TipoArt" Association="Self.FK_Articulos_TipoArt">
+            <End Role="TipoArt" EntitySet="TipoArt" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Articulos_Usuario" Association="Self.FK_Articulos_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <EntitySet Name="Tallas" EntityType="WatchmakerModel.Tallas" />
+          <AssociationSet Name="FK_Articulos_Tallas" Association="WatchmakerModel.FK_Articulos_Tallas">
+            <End Role="Tallas" EntitySet="Tallas" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Imagenes_Articulos" Association="WatchmakerModel.FK_Imagenes_Articulos">
+            <End Role="Articulos" EntitySet="Articulos" />
+            <End Role="Imagenes" EntitySet="Imagenes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Tallas">
+          <Key>
+            <PropertyRef Name="idtalla" />
+          </Key>
+          <Property Name="idtalla" Type="Int32" Nullable="false" />
+          <Property Name="Talla" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Articulos" Relationship="WatchmakerModel.FK_Articulos_Tallas" FromRole="Tallas" ToRole="Articulos" />
+        </EntityType>
+        <Association Name="FK_Articulos_Tallas">
+          <End Type="WatchmakerModel.Tallas" Role="Tallas" Multiplicity="0..1" />
+          <End Type="WatchmakerModel.Articulos" Role="Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tallas">
+              <PropertyRef Name="idtalla" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="IdTalla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Imagenes_Articulos">
+          <End Type="WatchmakerModel.Articulos" Role="Articulos" Multiplicity="0..1" />
+          <End Type="WatchmakerModel.Imagenes" Role="Imagenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulos">
+              <PropertyRef Name="IdArticulo" />
+            </Principal>
+            <Dependent Role="Imagenes">
+              <PropertyRef Name="IdArticulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WatchmakerModelStoreContainer" CdmEntityContainer="DbModels">
+          <EntitySetMapping Name="Articulos">
+            <EntityTypeMapping TypeName="WatchmakerModel.Articulos">
+              <MappingFragment StoreEntitySet="Articulos">
+                <ScalarProperty Name="Existencia" ColumnName="Existencia" />
+                <ScalarProperty Name="IdTalla" ColumnName="IdTalla" />
+                <ScalarProperty Name="IdArticulo" ColumnName="IdArticulo" />
+                <ScalarProperty Name="NombreArticulo" ColumnName="NombreArticulo" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="PrecioVenta" ColumnName="PrecioVenta" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+                <ScalarProperty Name="IdCate" ColumnName="IdCate" />
+                <ScalarProperty Name="IdImagen" ColumnName="IdImagen" />
+                <ScalarProperty Name="IdMaterial" ColumnName="IdMaterial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="WatchmakerModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="idCate" ColumnName="idCate" />
+                <ScalarProperty Name="Categoria1" ColumnName="Categoria" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Imagenes">
+            <EntityTypeMapping TypeName="WatchmakerModel.Imagenes">
+              <MappingFragment StoreEntitySet="Imagenes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdArticulo" ColumnName="IdArticulo" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Material">
+            <EntityTypeMapping TypeName="WatchmakerModel.Material">
+              <MappingFragment StoreEntitySet="Material">
+                <ScalarProperty Name="IdMaterial" ColumnName="IdMaterial" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Descripciontip" ColumnName="Descripciontip" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="WatchmakerModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoArt">
+            <EntityTypeMapping TypeName="WatchmakerModel.TipoArt">
+              <MappingFragment StoreEntitySet="TipoArt">
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Descripciontip" ColumnName="Descripciontip" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="WatchmakerModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tallas">
+            <EntityTypeMapping TypeName="WatchmakerModel.Tallas">
+              <MappingFragment StoreEntitySet="Tallas">
+                <ScalarProperty Name="Talla" ColumnName="Talla" />
+                <ScalarProperty Name="idtalla" ColumnName="idtalla" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

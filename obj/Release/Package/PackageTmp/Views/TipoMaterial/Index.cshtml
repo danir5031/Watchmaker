@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WatchMaker.Models.TipoArt>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", "", new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdTipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripciontip)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdTipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripciontip)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdTipo }, new { @class = "btn btn-warning" }) |
+            @Html.ActionLink("Details", "Details", new {  id=item.IdTipo }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdTipo  }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

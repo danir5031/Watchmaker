@@ -1,0 +1,42 @@
+﻿@model WatchMaker.Models.TipoArt
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TipoArt</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdTipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdTipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripciontip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripciontip)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new {id = Model.IdTipo }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

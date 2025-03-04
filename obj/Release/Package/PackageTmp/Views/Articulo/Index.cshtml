@@ -1,0 +1,82 @@
+﻿@model IEnumerable<WatchMaker.Models.Articulos>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Bodega de artículos</h2>
+
+<p>
+    @Html.ActionLink("Nuevo", "Create", "", new { @class = "btn btn-success" })&nbsp;
+    <button class="btn btn-secondary" onclick="imprimirTabla()">Imprimir Tabla</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br /><br /><br />
+
+    <label for="buscadorImagen" class="form-label">Buscar por imagen:</label>
+    <input type="file" id="buscadorImagen" class="form-control" accept="image/*">
+    <img id="previewBuscar" src="#" alt="Previsualización" style="max-width: 150px; display: none; margin-top: 10px;">
+    <br>
+    <button class="btn btn-primary" onclick="buscarPorImagen()">Buscar</button>
+    <button class="btn btn-secondary" onclick="resetearFiltro()">Restablecer</button>
+
+
+</p>
+<input type="text" id="buscador" class="form-control" placeholder="Buscar..." onkeyup="filtrarTabla()">
+
+
+<br>
+<div id="detalle-articulos">
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Precio Venta</th>
+            <th>Usuario</th>
+            <th>Tipo de Artículo</th>
+            <th>Categoría</th>
+            <th>Imagen</th>
+            <th>Material</th>
+            <th>Talla</th>
+            <th>Existencia</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.IdArticulo)</td>
+                <td>@Html.DisplayFor(modelItem => item.NombreArticulo)</td>
+                <td>@Html.DisplayFor(modelItem => item.PrecioVenta)</td>
+                <td> @(ViewBag.Usuarios != null && ViewBag.Usuarios.ContainsKey(item.IdUser) ? ViewBag.Usuarios[item.IdUser] : "Desconocido") </td>
+                <td> @(ViewBag.Tiposart != null && ViewBag.Tiposart.ContainsKey(Convert.ToInt32(item.IdTipo)) ? ViewBag.Tiposart[Convert.ToInt32(item.IdTipo)] : "Desconocido") </td>
+                <td> @(ViewBag.Catego != null && ViewBag.Catego.ContainsKey(Convert.ToInt32(item.IdCate)) ? ViewBag.Catego[Convert.ToInt32(item.IdCate)] : "Desconocido") </td>
+                <td>
+                    @if (item.Imagenes1 != null && item.Imagenes1.Any())
+                    {
+                        var imagen = item.Imagenes1.FirstOrDefault(); // Obtener la primera imagen
+                        if (imagen != null && imagen.Imagen != null)
+                        {
+                            <img src="data:image/png;base64,@Convert.ToBase64String(imagen.Imagen)" width="150" height="150" />
+                        }
+                        else
+                        {
+                            <span>No especificado</span>
+                        }
+                    }
+                    else
+                    {
+                        <span>No especificado</span>
+                    }
+                </td>
+                <td> @(ViewBag.Materials != null && ViewBag.Materials.ContainsKey(Convert.ToInt32(item.IdMaterial)) ? ViewBag.Materials[Convert.ToInt32(item.IdMaterial)] : "Desconocido") </td>
+                <td> @(ViewBag.Tallas != null && ViewBag.Tallas.ContainsKey(Convert.ToInt32(item.IdTalla)) ? ViewBag.Tallas[Convert.ToInt32(item.IdTalla)] : "Desconocido") </td>
+                <td>@Html.DisplayFor(modelItem => item.Existencia)</td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.IdArticulo }, new { @class = "btn btn-warning" }) |
+                    @Html.ActionLink("Detalle", "Details", new { id = item.IdArticulo }, new { @class = "btn btn-primary" }) &nbsp;<br><br>
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdArticulo }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

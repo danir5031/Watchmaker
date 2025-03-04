@@ -1,0 +1,151 @@
+﻿@model WatchMaker.Models.Articulos
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Editar Articulo</h2>
+
+@using (Html.BeginForm(Html.BeginForm("Edit", "Articulo", FormMethod.Post, new { enctype = "multipart/form-data" })))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+             @Html.Label("IdArticulo", "Código del Artículo: ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IdArticulo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.IdArticulo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("NombreArticulo", "Nombre: ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NombreArticulo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NombreArticulo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.Label("Cantidad", "Cantidad: ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Cantidad, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Cantidad, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.Label("PrecioVenta", "Precio: ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.PrecioVenta, new { @class = "form-control", type = "number", step = "0.01", min = "0.01", max = "999999.99" })
+                @Html.ValidationMessageFor(model => model.PrecioVenta, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.Label("IdTipo", "Tipo de articulo:", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IdTipo,
+                    new SelectList(ViewBag.listaTipo, "Value", "Text", Model.IdTipo),
+                    new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdTipo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("IdCate", "Categoria: ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IdCate,
+                    new SelectList(ViewBag.listacate, "Value", "Text", Model.IdCate),
+                    new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdCate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.Label("IdImagen", "Imagenes: ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IdImagen, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IdImagen, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.Label("IdMaterial", "Material: ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IdMaterial,
+                    new SelectList(ViewBag.listamater, "Value", "Text", Model.IdMaterial),
+                    new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdMaterial, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("IdTalla", "Talla: ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IdTalla,
+                    new SelectList(ViewBag.listatalla, "Value", "Text", Model.IdTalla),
+                    new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdTalla, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Existencia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Existencia, 
+                    new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem { Value = "Disponible", Text = "Disponible" },
+                        new SelectListItem { Value = "Agotado", Text = "Agotado" }
+                    }, "Value", "Text", Model.Existencia),
+                    new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Existencia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+         <div class="form-group">
+        @Html.Label("Imagen Actual", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @if (Model.Imagenes1 != null && Model.Imagenes1.Any())
+            {
+                var imagen = Model.Imagenes1.FirstOrDefault();
+                if (imagen != null && imagen.Imagen != null)
+                {
+                    <img src="data:image/png;base64,@Convert.ToBase64String(imagen.Imagen)" width="100" height="100" alt="Imagen actual" />
+                }
+            }
+            else
+            {
+                <span>No hay imagen disponible</span>
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Seleccionar nueva imagen:", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="nuevaImagen" class="form-control" accept="image/*" />
+        </div>
+    </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Regresar a la lista", "Index", "", new { @class = "btn btn-danger" })
+</div>
+
+

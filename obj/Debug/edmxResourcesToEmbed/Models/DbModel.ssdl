@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WatchmakerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Articulos">
+    <Key>
+      <PropertyRef Name="IdArticulo" />
+    </Key>
+    <Property Name="IdArticulo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreArticulo" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="PrecioVenta" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="IdUser" Type="int" Nullable="false" />
+    <Property Name="IdTipo" Type="int" />
+    <Property Name="IdCate" Type="int" />
+    <Property Name="IdImagen" Type="int" />
+    <Property Name="IdMaterial" Type="int" />
+    <Property Name="IdTalla" Type="int" />
+    <Property Name="Existencia" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="idCate" />
+    </Key>
+    <Property Name="idCate" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Categoria" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Imagenes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdArticulo" Type="int" />
+    <Property Name="Imagen" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Material">
+    <Key>
+      <PropertyRef Name="IdMaterial" />
+    </Key>
+    <Property Name="IdMaterial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tipo" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="Descripciontip" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Tallas">
+    <Key>
+      <PropertyRef Name="idtalla" />
+    </Key>
+    <Property Name="idtalla" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Talla" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TipoArt">
+    <Key>
+      <PropertyRef Name="IdTipo" />
+    </Key>
+    <Property Name="IdTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tipo" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="Descripciontip" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="IdUser" />
+    </Key>
+    <Property Name="IdUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Usuario" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Pass" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Apellido" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Rol" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Articulos_Categoria">
+    <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+    <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="idCate" />
+      </Principal>
+      <Dependent Role="Articulos">
+        <PropertyRef Name="IdCate" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Articulos_Material">
+    <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
+    <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Material">
+        <PropertyRef Name="IdMaterial" />
+      </Principal>
+      <Dependent Role="Articulos">
+        <PropertyRef Name="IdMaterial" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Articulos_Tallas">
+    <End Role="Tallas" Type="Self.Tallas" Multiplicity="0..1" />
+    <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tallas">
+        <PropertyRef Name="idtalla" />
+      </Principal>
+      <Dependent Role="Articulos">
+        <PropertyRef Name="IdTalla" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Articulos_TipoArt">
+    <End Role="TipoArt" Type="Self.TipoArt" Multiplicity="0..1" />
+    <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoArt">
+        <PropertyRef Name="IdTipo" />
+      </Principal>
+      <Dependent Role="Articulos">
+        <PropertyRef Name="IdTipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Articulos_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="Articulos">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Imagenes_Articulos">
+    <End Role="Articulos" Type="Self.Articulos" Multiplicity="0..1" />
+    <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articulos">
+        <PropertyRef Name="IdArticulo" />
+      </Principal>
+      <Dependent Role="Imagenes">
+        <PropertyRef Name="IdArticulo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WatchmakerModelStoreContainer">
+    <EntitySet Name="Articulos" EntityType="Self.Articulos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Imagenes" EntityType="Self.Imagenes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tallas" EntityType="Self.Tallas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoArt" EntityType="Self.TipoArt" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Articulos_Categoria" Association="Self.FK_Articulos_Categoria">
+      <End Role="Categoria" EntitySet="Categoria" />
+      <End Role="Articulos" EntitySet="Articulos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Articulos_Material" Association="Self.FK_Articulos_Material">
+      <End Role="Material" EntitySet="Material" />
+      <End Role="Articulos" EntitySet="Articulos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Articulos_Tallas" Association="Self.FK_Articulos_Tallas">
+      <End Role="Tallas" EntitySet="Tallas" />
+      <End Role="Articulos" EntitySet="Articulos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Articulos_TipoArt" Association="Self.FK_Articulos_TipoArt">
+      <End Role="TipoArt" EntitySet="TipoArt" />
+      <End Role="Articulos" EntitySet="Articulos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Articulos_Usuario" Association="Self.FK_Articulos_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Articulos" EntitySet="Articulos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Imagenes_Articulos" Association="Self.FK_Imagenes_Articulos">
+      <End Role="Articulos" EntitySet="Articulos" />
+      <End Role="Imagenes" EntitySet="Imagenes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

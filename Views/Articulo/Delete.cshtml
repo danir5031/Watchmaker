@@ -1,0 +1,137 @@
+﻿@model WatchMaker.Models.Articulos
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Eliminar este articulo</h2>
+
+<h3>Estas seguro de eliminar este producto?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Id:
+            @*@Html.DisplayNameFor(model => model.IdArticulo)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdArticulo)
+        </dd>
+
+        <dt>
+            Normbre:
+            @*@Html.DisplayNameFor(model => model.NombreArticulo)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreArticulo)
+        </dd>
+
+        <!--<dt>
+    1@Html.DisplayNameFor(model => model.Cantidad)
+    </dt>
+
+    <dd>
+        1@Html.DisplayFor(model => model.Cantidad)
+    </dd>-->
+
+        <dt>
+            Precio Venta:
+            @*Html.DisplayNameFor(model => model.PrecioVenta)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrecioVenta)
+        </dd>
+
+        <dt>
+            Ultima edicion por:
+            @*@Html.DisplayNameFor(model => model.IdUser)*@
+        </dt>
+
+        <dd>
+            @ViewBag.NombreUsuario
+        </dd>
+
+        <dt>
+            Tipo de articulo:
+            @*@Html.DisplayNameFor(model => model.IdTipo)*@
+        </dt>
+
+        <dd>
+            @ViewBag.NombreTipo
+            @*Html.DisplayFor(model => model.IdTipo)*@
+        </dd>
+
+        <dt>
+            Categoria:
+            @*@Html.DisplayNameFor(model => model.IdCate)*@
+        </dt>
+
+        <dd>
+            @ViewBag.NombreCategoria
+            @*Html.DisplayFor(model => model.IdCate)*@
+        </dd>
+
+        <dt>Imagen:</dt>
+        <dd>
+            @if (Model.Imagenes1 != null && Model.Imagenes1.Any())
+            {
+                var imagen = Model.Imagenes1.FirstOrDefault(); // Obtener la primera imagen
+                if (imagen != null && imagen.Imagen != null)
+                {
+                    <img src="data:image/png;base64,@Convert.ToBase64String(imagen.Imagen)" width="200" height="200" alt="Imagen del artículo" />
+                }
+                else
+                {
+                    <span>No hay imagen disponible</span>
+                }
+            }
+            else
+            {
+                <span>No hay imagen disponible</span>
+            }
+        </dd>
+
+        <dt>
+            Material:
+            @*@Html.DisplayNameFor(model => model.IdMaterial)*@
+        </dt>
+
+        <dd>
+            @ViewBag.NombreMaterial
+            @*Html.DisplayFor(model => model.IdMaterial)*@
+        </dd>
+
+        <dt>
+            Talla:
+            @*@Html.DisplayNameFor(model => model.IdTalla)*@
+        </dt>
+
+        <dd>
+            @ViewBag.NombreTalla
+            @*Html.DisplayFor(model => model.IdTalla)*@
+        </dd>
+
+        <dt>
+            Existencia:
+            @*@Html.DisplayNameFor(model => model.IdTalla)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Existencia)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+           @Html.ActionLink("Regresar a la lista", "Index", "", new { @class = "btn btn-success" })
+        </div>
+    }
+</div>

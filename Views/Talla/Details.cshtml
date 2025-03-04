@@ -1,0 +1,34 @@
+﻿@model WatchMaker.Models.Tallas
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tallas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idtalla)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idtalla)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Talla)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Talla)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idtalla }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

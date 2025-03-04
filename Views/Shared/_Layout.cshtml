@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="@Url.Action("Index", "Home", new { area = "" })" class="navbar-brand d-flex align-items-center">
+                    <img src="~/Content/Imagenes/Icono.jpg" alt="Watchmaker Icon" style="height: 20px; margin-right: 5px;">
+
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Usuario", "Index", "Usuario")</li>
+                    <li>@Html.ActionLink("Bodega", "Index", "Articulo")</li>
+                    <li>@Html.ActionLink("Categoria", "Index", "Categoria")</li>
+                    <li>@Html.ActionLink("TipoArticulo", "Index", "TipoMaterial")</li>
+                    <li>@Html.ActionLink("Material", "Index", "Material")</li>
+                    <li>@Html.ActionLink("Tallas", "Index", "Talla")</li>
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="navbar-text">
+                        @if (ViewBag.NombreUsuario != null)
+                        {
+                            <span>Bienvenido, @ViewBag.NombreUsuario</span>
+                        }
+                    </li>
+                    <li>
+                        @Html.ActionLink("Cerrar Sesión", "Logout", "CloseSesion", null, new { @class = "btn btn-danger navbar-btn", style = "height: 30px; line-height: 30px; padding: 0 10px; color:white; " })
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Aplicacion WATCHMAKER</p>
+            <p>Derechos Reservados </p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Content/Js/Imprimir.js"></script>
+    <script src="~/Content/Js/imprimirar.js"></script>
+    <script src="~/Content/Js/buscarar.js"></script>
+    <script src="~/Content/Js/MostrarImagen.js"></script>
+    <script src="~/Content/Js/BuscarImagen.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

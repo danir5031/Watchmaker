@@ -1,0 +1,42 @@
+﻿@model WatchMaker.Models.Material
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Material</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdMaterial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdMaterial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripciontip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripciontip)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdMaterial }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
