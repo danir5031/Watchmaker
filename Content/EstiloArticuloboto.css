@@ -1,0 +1,137 @@
+﻿/* Contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Separadores entre las secciones */
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+.p-3 {
+    padding: 1.5rem;
+}
+
+.border {
+    border: 1px solid #ddd;
+}
+
+/* Estilo de las tarjetas */
+.rounded {
+    border-radius: 8px;
+}
+
+/* Sombra ligera para dar un toque profesional */
+.shadow-sm {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Título de las secciones */
+h4 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Botones en la primera sección */
+.btn-success {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+/* Estilo de los inputs */
+input[type="text"], input[type="file"] {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Botones de restablecer */
+.btn-secondary {
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 5px;
+}
+
+/* Estilo de los botones en la sección de exportación */
+.btn-primary {
+    font-size: 14px;
+    padding: 10px 16px;
+}
+
+/* Estilo para el filtro por imagen */
+#buscadorImagen {
+    max-width: 400px;
+    margin-right: 10px;
+}
+
+/* Imagen de previsualización */
+#previewBuscar {
+    display: block;
+    max-width: 150px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+    .col-md-4 {
+        width: 100%;
+    }
+}
+
+
+/* Estilos adicionales para asegurarse que todo esté alineado correctamente */
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+    .input-group input {
+        flex-grow: 1;
+    }
+
+    .input-group button {
+        margin-left: 5px;
+    }
+
+.w-100 {
+    width: 100%;
+}
+
+.btn-outline-secondary {
+    min-width: 150px; /* Para asegurarse de que el botón tenga un tamaño adecuado */
+}
+
+img {
+    margin-top: 10px;
+}
+
+/* Estilos para los botones de acción */
+.action-buttons {
+    display: flex; /* Alineación en fila */
+    justify-content: start; /* Alinea los botones al principio */
+    gap: 10px; /* Espacio entre los botones */
+}
+
+    /* Si necesitas que los botones tengan un ancho específico o se ajusten */
+
+
+
+    /* Estilo para los botones más pequeños y ajustados al texto */
+    .action-buttons .btn {
+        font-size: 12px; /* Reducir tamaño de texto */
+        padding: 10px 15px; /* Reducir padding para hacer los botones más pequeños */
+        border-radius: 4px; /* Esquinas más redondeadas si lo deseas */
+    }
+
+    /* Si prefieres usar Bootstrap para botones pequeños, puedes agregar esta clase directamente */
+    .action-buttons .btn-sm {
+        font-size: 12px; /* Ajuste del tamaño del texto */
+        padding: 4px 8px; /* Ajuste de padding para un botón más compacto */
+    }
+

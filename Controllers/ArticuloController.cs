@@ -22,15 +22,24 @@ namespace WatchMaker.Controllers
             {
                 var articulos = context.Articulos.Include(a => a.Imagenes1).ToList(); // Incluir imágenes
 
+                // Ordenar los artículos según la primera palabra y luego la segunda
+                var articulosOrdenados = articulos
+                    .OrderBy(a => a.NombreArticulo.Split(' ')[0]) // Ordena por la primera palabra
+                    .ThenBy(a => a.NombreArticulo.Split(' ').Skip(1).FirstOrDefault() ?? "") // Ordena por la segunda palabra si existe
+                    .ThenBy(a => a.NombreArticulo) // Si hay más palabras, ordena por el nombre completo
+                    .ToList();
+
+                // Cargar datos en ViewBag
                 ViewBag.Usuarios = context.Usuario.ToDictionary(u => u.IdUser, u => u.Nombre);
                 ViewBag.Tiposart = context.TipoArt.ToDictionary(u => u.IdTipo, u => u.Tipo);
                 ViewBag.Catego = context.Categoria.ToDictionary(u => u.idCate, u => u.Categoria1);
                 ViewBag.Tallas = context.Tallas.ToDictionary(u => u.idtalla, u => u.Talla);
                 ViewBag.Materials = context.Material.ToDictionary(u => u.IdMaterial, u => u.Tipo);
 
-                return View(articulos);
+                return View(articulosOrdenados); // Enviar la lista ordenada
             }
         }
+
 
         // GET: Articulo/Details/5
         public ActionResult Details(int id)
@@ -325,23 +334,7 @@ namespace WatchMaker.Controllers
                 return View();
             }
         }
-
-
-        public ActionResult ObtenerImagen(int id)
-        {
-            using (DbModels context = new DbModels())
-            {
-                var imagen = context.Imagenes.FirstOrDefault(i => i.IdArticulo == id);
-                if (imagen != null && imagen.Imagen != null)
-                {
-                    return File(imagen.Imagen, "image/jpeg"); // Ajusta el tipo MIME si es necesario
-                }
-            }
-
-            // Imagen por defecto si no hay ninguna
-            return File("~/Content/imagenes/default.png", "image/png"); // Asegúrate de tener esta imagen en tu carpeta
-        }
-
+       
 
 
 

@@ -53,10 +53,12 @@
       <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -192,8 +194,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\EstiloArticuloboto.css" />
     <Content Include="Content\Js\buscarar.js" />
     <Content Include="Content\Js\BuscarImagen.js" />
+    <Content Include="Content\Js\Exportardatos.js" />
     <Content Include="Content\Js\imprimirar.js" />
     <Content Include="Content\Js\Imprimir.js" />
     <Content Include="Content\Js\MostrarImagen.js" />

@@ -1,11 +1,20 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
     @Styles.Render("~/Content/css")
+    <!-- Cargar Bootstrap 5 sin Popper.js -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJZKXhqz5Dd1zZzdTST7tUve1gu3yq83l4rJzAQ2UBf5t3W06hbP6KJ0W4t6" crossorigin="anonymous">
+
+    <!-- Cargar el script de Bootstrap 5 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+    <link href="~/Content/EstiloArticuloboto.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -63,6 +72,11 @@
     <script src="~/Content/Js/buscarar.js"></script>
     <script src="~/Content/Js/MostrarImagen.js"></script>
     <script src="~/Content/Js/BuscarImagen.js"></script>
+    <script src="~/Content/Js/Exportardatos.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.2/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

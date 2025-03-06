@@ -7,26 +7,91 @@
 
 <h2>Bodega de artículos</h2>
 
-<p>
-    @Html.ActionLink("Nuevo", "Create", "", new { @class = "btn btn-success" })&nbsp;
-    <button class="btn btn-secondary" onclick="imprimirTabla()">Imprimir Tabla</button>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br /><br /><br />
+<div class="container mt-4">
+    <div class="row">
+        <!-- Primera Sección: Crear Artículo -->
+        <div class="col-12 col-md-4 mb-4">
+            <div class="p-3 border rounded shadow-sm">
+                <h4>Acciones Rápidas</h4>
+                <div>
+                    @Html.ActionLink("Nuevo", "Create", "", new { @class = "btn btn-success w-100" })
+                </div>
+            </div>
+        </div>
 
-    <label for="buscadorImagen" class="form-label">Buscar por imagen:</label>
-    <input type="file" id="buscadorImagen" class="form-control" accept="image/*">
-    <img id="previewBuscar" src="#" alt="Previsualización" style="max-width: 150px; display: none; margin-top: 10px;">
-    <br>
-    <button class="btn btn-primary" onclick="buscarPorImagen()">Buscar</button>
-    <button class="btn btn-secondary" onclick="resetearFiltro()">Restablecer</button>
+        <!-- Segunda Sección: Filtros -->
+        <div class="col-12 col-md-4 mb-4">
+            <div class="p-3 border rounded shadow-sm">
+                <h4>Filtros de Búsqueda</h4>
+                <div class="d-flex flex-column">
+                    <!-- Campo de búsqueda por texto y búsqueda por imagen en el mismo input-group -->
+                    <div class="mb-3">
+                        <label for="buscador" class="form-label">Buscar Artículos:</label>
+                        <div class="input-group">
+                            <!-- Campo de búsqueda por texto -->
+                            <input type="text" id="buscador" class="form-control" placeholder="Buscar por nombre..." onkeyup="filtrarTabla()">
+
+                            <!-- Filtro por imagen como un botón dentro del input-group -->
+                            <button class="btn btn-outline-secondary" type="button" onclick="document.getElementById('buscadorImagen').click();">
+                                <i class="bi bi-image"></i> Buscar Imagen
+                            </button>
+
+                            <!-- Filtro por imagen invisible -->
+                            <input type="file" id="buscadorImagen" class="form-control" accept="image/*" onchange="previsualizarImagen()" style="display: none;">
+                        </div>
+                        <br />
+                        <div>
+                            <button class="btn btn-secondary w-100" onclick="resetearFiltro()">Restablecer</button>
+                        </div>
+                        <!-- Previsualización de la imagen -->
+                        <img id="previewBuscar" src="#" alt="Previsualización" style="max-width: 150px; display: none; margin-top: 10px;">
+                    </div>
+
+                    <!-- Botón Restablecer -->
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Tercera Sección: Imprimir y Descargar Datos -->
+        <div class="col-12 col-md-4 mb-4">
+            <div class="p-3 border rounded shadow-sm">
+                <h4>Imprimir y Exportar Datos</h4>
+                <div class="d-flex flex-column">
+                    <!-- Sección de Imprimir y Exportar con dropdown -->
+                    <div class="mb-3">
+                        <label for="exportar" class="form-label">Selecciona una acción:</label>
+                        <div class="btn-group w-100">
+                            <button type="button" class="btn btn-primary dropdown-toggle w-100" data-bs-toggle="dropdown" aria-expanded="false">
+                                Opciones
+                            </button>
+                            <ul class="dropdown-menu w-100">
+                                <li><a class="dropdown-item" href="#" onclick="imprimirTabla()">Imprimir Tabla</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="descargarDatos('csv')">Descargar como CSV</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="descargarDatos('excel')">Descargar como Excel</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="descargarDatos('sql')">Descargar como SQL</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-</p>
-<input type="text" id="buscador" class="form-control" placeholder="Buscar..." onkeyup="filtrarTabla()">
+
+
+
+
+
+
+
 
 
 <br>
 <div id="detalle-articulos">
-    <table class="table">
+    <table class="table" id="tablaArticulos">
         <tr>
             <th>Id</th>
             <th>Nombre</th>
@@ -72,10 +137,13 @@
                 <td> @(ViewBag.Tallas != null && ViewBag.Tallas.ContainsKey(Convert.ToInt32(item.IdTalla)) ? ViewBag.Tallas[Convert.ToInt32(item.IdTalla)] : "Desconocido") </td>
                 <td>@Html.DisplayFor(modelItem => item.Existencia)</td>
                 <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.IdArticulo }, new { @class = "btn btn-warning" }) |
-                    @Html.ActionLink("Detalle", "Details", new { id = item.IdArticulo }, new { @class = "btn btn-primary" }) &nbsp;<br><br>
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdArticulo }, new { @class = "btn btn-danger" })
+                    <div class="action-buttons">
+                        @Html.ActionLink("Editar", "Edit", new { id = item.IdArticulo }, new { @class = "btn btn-warning" }) 
+                        @Html.ActionLink("Detalle", "Details", new { id = item.IdArticulo }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.IdArticulo }, new { @class = "btn btn-danger" })
+                    </div>
                 </td>
+
             </tr>
         }
     </table>
